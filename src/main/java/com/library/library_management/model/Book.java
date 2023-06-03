@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",length = 50,nullable = false)
+    @Column(name = "id", length = 50, nullable = false)
     private Long id;
     @Column(nullable = false)
     private String bookName;
-    @OneToOne(mappedBy = "book",orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "book", orphanRemoval = true, cascade = CascadeType.ALL)
     private BookProfile bookProfile;
     @ManyToOne
     @JoinColumn(
@@ -26,5 +26,15 @@ public class Book {
     )
     private User user;
 
+    public Book(String bookName, BookProfile bookProfile, User user) {
+        this.bookName = bookName;
+        this.bookProfile = bookProfile;
+        this.user = user;
+    }
+
+    public Book(String bookName, BookProfile bookProfile) {
+        this.bookName = bookName;
+        this.bookProfile = bookProfile;
+    }
 
 }

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,9 +26,16 @@ public class Address {
     @Column(nullable = false)
     private String state;
     @ManyToMany
-    @JoinColumn(
-            name = "address_id",
-            foreignKey = @ForeignKey(name="address_user_fk")
-    )
-    private User user;
+    @JoinTable(
+            name = "user_address",
+            joinColumns = @JoinColumn(name = "address_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> user;
+
+    public Address(String streetName, String city, String zipcode, String state) {
+        this.streetName = streetName;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.state = state;
+    }
 }
